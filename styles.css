@@ -151,11 +151,32 @@ main {
 }
 
 .route-page {
-  display: none;
+  position: relative;
+  display: block;
+  scroll-margin-top: 86px;
 }
 
 .route-page.active {
   display: block;
+}
+
+.route-page + .route-page {
+  border-top: 1px solid rgba(255, 255, 255, 0.075);
+}
+
+.route-page + .route-page::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 50%;
+  width: min(640px, 72vw);
+  height: 1px;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.58), transparent);
+}
+
+.home-page {
+  scroll-margin-top: 0;
 }
 
 .hero {
