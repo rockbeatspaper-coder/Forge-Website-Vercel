@@ -12,7 +12,7 @@
   <title>Forge Client</title>
   <link rel="icon" href="./Forge Executor.ico">
   <link rel="preconnect" href="https://api.github.com">
-  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./styles.css?v=forge-site-ui-3">
 </head>
 <body>
   <div class="site-shell">
@@ -50,70 +50,82 @@
             </div>
           </div>
 
-          <div class="executor-frame hero-frame">
-            <div class="executor-titlebar">
-              <div class="title-left">
-                <img src="./Forge Executor.ico" alt="" aria-hidden="true">
-                <span id="heroChannelName">Forge Client</span>
-              </div>
-              <div class="title-center" id="releaseName">Latest release</div>
-              <div class="window-buttons" aria-hidden="true">
-                <span></span>
-                <span></span>
-                <span></span>
-              </div>
-            </div>
-
-            <div class="executor-body">
-              <aside class="executor-sidebar">
-                <div class="sidebar-brand">
-                  <strong>Forge Client</strong>
-                  <span>offline</span>
-                </div>
-                <div class="sidebar-search">Search Explorer...</div>
-                <nav class="executor-nav" aria-label="Preview navigation">
-                  <span>Dashboard</span>
-                  <span class="active">Editor</span>
-                  <span>External</span>
-                  <span>Scripts</span>
-                  <span>Settings</span>
-                </nav>
-                <div class="sidebar-user">
-                  <span>FG</span>
+          <div class="forge-app-preview hero-frame">
+            <aside class="forge-app-sidebar">
+              <div class="forge-brand-row">
+                <div class="forge-brand-lockup">
+                  <img src="./Forge Executor.ico" alt="" aria-hidden="true">
                   <div>
-                    <strong>forge</strong>
-                    <small>local session</small>
+                    <strong>Forge</strong>
+                    <span>offline</span>
                   </div>
                 </div>
-              </aside>
+                <button type="button" aria-label="Refresh explorer">
+                  <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13 4v4H9M3 12V8h4M12.1 6A4.5 4.5 0 0 0 4.4 4.4M3.9 10A4.5 4.5 0 0 0 11.6 11.6"/></svg>
+                </button>
+              </div>
 
-              <div class="executor-workspace">
-                <div class="workspace-path">
-                  <span>Forge</span>
-                  <b>/</b>
-                  <span>workspace</span>
-                  <b>/</b>
+              <div class="forge-search"><span></span>Search Explorer...</div>
+              <div class="forge-label">Workspace</div>
+
+              <nav class="forge-nav" aria-label="Forge preview explorer">
+                <span class="active"><svg viewBox="0 0 20 20"><path d="M5 3.5h7l3 3v10H5z"/><path d="M12 3.5v3h3M7.5 10h5M7.5 13h3"/></svg>New Tab 1</span>
+                <span><svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="5.5"/><path d="M10 2.5v3M10 14.5v3M2.5 10h3M14.5 10h3"/></svg>External</span>
+                <span><svg viewBox="0 0 20 20"><path d="M7 6l-3 4 3 4M13 6l3 4-3 4M11.5 4.5l-3 11"/></svg>Script Hub</span>
+                <span><svg viewBox="0 0 20 20"><rect x="3.5" y="3.5" width="5" height="5" rx="1"/><rect x="11.5" y="3.5" width="5" height="5" rx="1"/><rect x="3.5" y="11.5" width="5" height="5" rx="1"/><rect x="11.5" y="11.5" width="5" height="5" rx="1"/></svg>Dashboard</span>
+                <span><svg viewBox="0 0 20 20"><path d="M3 6h9M15 6h2M3 14h2M8 14h9"/><circle cx="13.5" cy="6" r="1.8"/><circle cx="6.5" cy="14" r="1.8"/></svg>Settings</span>
+              </nav>
+
+              <div class="forge-label">Session</div>
+              <div class="forge-session">
+                <div><span>Runtime</span><strong>Forge Runtime</strong></div>
+                <div><span>Language</span><strong>Lua 5.1</strong></div>
+                <div><span>Editor</span><strong>Monaco</strong></div>
+              </div>
+
+              <div class="forge-user">
+                <span>FG</span>
+                <div><strong>forge</strong><small>local session</small></div>
+                <button type="button" aria-label="Account menu">::</button>
+              </div>
+            </aside>
+
+            <main class="forge-app-main">
+              <header class="forge-topbar">
+                <div class="forge-title-left">
+                  <img src="./Forge Executor.ico" alt="" aria-hidden="true">
                   <strong>Editor</strong>
-                  <button type="button" aria-label="Forge AI">star</button>
                 </div>
+                <div class="forge-version" id="releaseName">Latest release</div>
+                <div class="forge-topbar-controls">
+                  <div class="forge-pills"><span>Forge Runtime</span><span>Lua 5.1</span><span id="heroChannelName">v1.0.8</span></div>
+                  <button class="forge-ai-button" type="button" aria-label="Toggle Forge AI">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8l2.62 5.86 6.38.68-4.76 4.3 1.33 6.28L12 16.7l-5.57 3.22 1.33-6.28L3 9.34l6.38-.68L12 2.8z"/></svg>
+                  </button>
+                  <div class="forge-window-actions" aria-hidden="true"><span></span><span></span><span></span></div>
+                </div>
+              </header>
 
-                <div class="editor-tabs">
-                  <span class="active">Script 1 <b>x</b></span>
-                  <span>Forge Hub.lua <b>x</b></span>
+              <section class="forge-editor-view">
+                <div class="forge-tabs-row">
+                  <div class="forge-tab active"><svg viewBox="0 0 20 20"><path d="M5 3.5h7l3 3v10H5z"/><path d="M12 3.5v3h3"/></svg>New Tab 1 <b>x</b></div>
                   <button type="button" aria-label="New tab">+</button>
                 </div>
 
-                <div class="code-grid">
-                  <div class="line-num">1</div><code><span class="keyword">local</span> Players = <span class="global">game</span>:GetService(<span class="string">"Players"</span>)</code>
-                  <div class="line-num">2</div><code><span class="keyword">while</span> <span class="boolean">true</span> <span class="keyword">do</span></code>
-                  <div class="line-num">3</div><code>  <span class="global">print</span>(<span class="string">"Hello Forge!"</span>)</code>
-                  <div class="line-num">4</div><code>  <span class="global">task</span>.wait(<span class="number">1</span>)</code>
-                  <div class="line-num">5</div><code><span class="keyword">end</span></code>
+                <div class="forge-editor-stage">
+                  <div class="forge-code">
+                    <div>1</div><code><span class="keyword">print</span>(<span class="string">"Hello Forge!"</span>)</code>
+                    <div>2</div><code><span class="comment">-- Monaco Luau editor</span></code>
+                    <div>3</div><code><span class="keyword">local</span> Players = <span class="global">game</span>:GetService(<span class="string">"Players"</span>)</code>
+                    <div>4</div><code><span class="keyword">while</span> <span class="boolean">true</span> <span class="keyword">do</span></code>
+                    <div>5</div><code>  <span class="global">task</span>.wait(<span class="number">1</span>)</code>
+                    <div>6</div><code><span class="keyword">end</span></code>
+                  </div>
                 </div>
 
-                <div class="action-row">
+                <div class="forge-bottom-actions">
                   <div>
-                    <button type="button" class="primary-action">Execute</button>
+                    <button class="primary-action" type="button">Execute</button>
                     <button type="button">Clear</button>
                     <button type="button">Open</button>
                     <button type="button">Save</button>
@@ -124,24 +136,17 @@
                   </div>
                 </div>
 
-                <div class="output-dock">
-                  <div class="dock-head">
-                    <strong>Output</strong>
-                    <span id="releaseDate">GitHub releases</span>
-                  </div>
-                  <pre>[Forge] Monaco loaded
-[Forge] Luau diagnostics ready
-[Forge] Waiting for client...</pre>
+                <div class="forge-output">
+                  <div><strong>Output</strong><span id="releaseDate">GitHub releases</span></div>
+                  <pre>[22:32:14] - Loaded -> /Tab.json
+[22:32:14] - Welcome to Forge
+[22:32:15] - Supported version -> version-acc4b74f79e743b9
+[22:32:15] - Watcher started.</pre>
                 </div>
 
-                <div class="statusline">
-                  <span>Script 1</span>
-                  <span>0 issues</span>
-                  <span>Lua 5.1</span>
-                  <span>Luau syntax</span>
-                </div>
-              </div>
-            </div>
+                <footer class="forge-statusbar"><span>Script 1</span><span>0 issues</span><span>Lua 5.1</span><span>Monaco</span></footer>
+              </section>
+            </main>
           </div>
         </div>
       </section>
@@ -187,20 +192,87 @@
           </div>
 
           <div class="preview-window active editor-preview-panel" data-panel="editor">
-            <div class="mini-executor">
-              <div class="mini-sidebar">
-                <strong>Forge</strong>
-                <span class="active">Editor</span>
-                <span>External</span>
-                <span>Scripts</span>
-              </div>
-              <div class="mini-editor">
-                <div class="mini-tabs"><span>Script 1</span><button>+</button></div>
-                <pre><b>1</b> local service = game:GetService("Players")
-<b>2</b> print("Hello Forge!")
-<b>3</b> -- Monaco diagnostics and snippets</pre>
-                <div class="mini-actions"><button>Execute</button><button>Inject</button></div>
-              </div>
+            <div class="forge-app-preview preview-forge-app">
+              <aside class="forge-app-sidebar">
+                <div class="forge-brand-row">
+                  <div class="forge-brand-lockup">
+                    <img src="./Forge Executor.ico" alt="" aria-hidden="true">
+                    <div>
+                      <strong>Forge</strong>
+                      <span>offline</span>
+                    </div>
+                  </div>
+                  <button type="button" aria-label="Refresh explorer">
+                    <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13 4v4H9M3 12V8h4M12.1 6A4.5 4.5 0 0 0 4.4 4.4M3.9 10A4.5 4.5 0 0 0 11.6 11.6"/></svg>
+                  </button>
+                </div>
+                <div class="forge-search"><span></span>Search Explorer...</div>
+                <div class="forge-label">Workspace</div>
+                <nav class="forge-nav" aria-label="Forge preview explorer">
+                  <span class="active"><svg viewBox="0 0 20 20"><path d="M5 3.5h7l3 3v10H5z"/><path d="M12 3.5v3h3M7.5 10h5M7.5 13h3"/></svg>New Tab 1</span>
+                  <span><svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="5.5"/><path d="M10 2.5v3M10 14.5v3M2.5 10h3M14.5 10h3"/></svg>External</span>
+                  <span><svg viewBox="0 0 20 20"><path d="M7 6l-3 4 3 4M13 6l3 4-3 4M11.5 4.5l-3 11"/></svg>Script Hub</span>
+                  <span><svg viewBox="0 0 20 20"><rect x="3.5" y="3.5" width="5" height="5" rx="1"/><rect x="11.5" y="3.5" width="5" height="5" rx="1"/><rect x="3.5" y="11.5" width="5" height="5" rx="1"/><rect x="11.5" y="11.5" width="5" height="5" rx="1"/></svg>Dashboard</span>
+                  <span><svg viewBox="0 0 20 20"><path d="M3 6h9M15 6h2M3 14h2M8 14h9"/><circle cx="13.5" cy="6" r="1.8"/><circle cx="6.5" cy="14" r="1.8"/></svg>Settings</span>
+                </nav>
+                <div class="forge-label">Session</div>
+                <div class="forge-session">
+                  <div><span>Runtime</span><strong>Forge Runtime</strong></div>
+                  <div><span>Language</span><strong>Lua 5.1</strong></div>
+                  <div><span>Editor</span><strong>Monaco</strong></div>
+                </div>
+                <div class="forge-user">
+                  <span>FG</span>
+                  <div><strong>forge</strong><small>local session</small></div>
+                  <button type="button" aria-label="Account menu">::</button>
+                </div>
+              </aside>
+
+              <main class="forge-app-main">
+                <header class="forge-topbar">
+                  <div class="forge-title-left">
+                    <img src="./Forge Executor.ico" alt="" aria-hidden="true">
+                    <strong>Editor</strong>
+                  </div>
+                  <div class="forge-version">1.0.8</div>
+                  <div class="forge-topbar-controls">
+                    <div class="forge-pills"><span>Forge Runtime</span><span>Lua 5.1</span><span>v1.0.8</span></div>
+                    <button class="forge-ai-button" type="button" aria-label="Toggle Forge AI">
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8l2.62 5.86 6.38.68-4.76 4.3 1.33 6.28L12 16.7l-5.57 3.22 1.33-6.28L3 9.34l6.38-.68L12 2.8z"/></svg>
+                    </button>
+                    <div class="forge-window-actions" aria-hidden="true"><span></span><span></span><span></span></div>
+                  </div>
+                </header>
+
+                <section class="forge-editor-view">
+                  <div class="forge-tabs-row">
+                    <div class="forge-tab active"><svg viewBox="0 0 20 20"><path d="M5 3.5h7l3 3v10H5z"/><path d="M12 3.5v3h3"/></svg>New Tab 1 <b>x</b></div>
+                    <button type="button" aria-label="New tab">+</button>
+                  </div>
+                  <div class="forge-editor-stage">
+                    <div class="forge-code">
+                      <div>1</div><code><span class="keyword">print</span>(<span class="string">"Hello Forge!"</span>)</code>
+                      <div>2</div><code><span class="comment">-- Monaco Luau editor</span></code>
+                      <div>3</div><code><span class="keyword">local</span> Players = <span class="global">game</span>:GetService(<span class="string">"Players"</span>)</code>
+                      <div>4</div><code><span class="keyword">while</span> <span class="boolean">true</span> <span class="keyword">do</span></code>
+                      <div>5</div><code>  <span class="global">task</span>.wait(<span class="number">1</span>)</code>
+                      <div>6</div><code><span class="keyword">end</span></code>
+                    </div>
+                  </div>
+                  <div class="forge-bottom-actions">
+                    <div><button class="primary-action" type="button">Execute</button><button type="button">Clear</button><button type="button">Open</button><button type="button">Save</button></div>
+                    <div><button type="button">Inject</button><button type="button">Clients</button></div>
+                  </div>
+                  <div class="forge-output">
+                    <div><strong>Output</strong><span>live</span></div>
+                    <pre>[22:32:14] - Loaded -> /Tab.json
+[22:32:14] - Welcome to Forge
+[22:32:15] - Supported version -> version-acc4b74f79e743b9
+[22:32:15] - Watcher started.</pre>
+                  </div>
+                  <footer class="forge-statusbar"><span>Script 1</span><span>0 issues</span><span>Lua 5.1</span><span>Monaco</span></footer>
+                </section>
+              </main>
             </div>
           </div>
 
