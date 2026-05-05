@@ -24,7 +24,10 @@
       <nav class="site-nav" aria-label="Primary">
         <a href="#download">Download</a>
         <a href="#overview">Overview</a>
+        <a href="#screens">Screens</a>
         <a href="#features">Features</a>
+        <a href="#releases">Releases</a>
+        <a href="#faq">FAQ</a>
       </nav>
 
       <a class="header-download" href="https://github.com/rockbeatspaper-coder/Forge-Executor/releases/latest" target="_blank" rel="noreferrer">GitHub</a>
@@ -34,8 +37,8 @@
       <section class="hero" id="download">
         <div class="hero-copy">
           <p class="eyebrow">Forge Client</p>
-          <h1>Sharp scripts. Dark shell. Instant updates.</h1>
-          <p class="hero-subtitle">A blacked-out Monaco workspace with ScriptBlox search, external tools, Forge Hub, and GitHub-powered auto updates.</p>
+          <h1>A real executor shell with Forge polish.</h1>
+          <p class="hero-subtitle">Forge wraps Monaco, ScriptBlox, external modules, auto-update, and Forge Hub in a sleek dark client built for fast workflow.</p>
 
           <div class="hero-actions">
             <a class="download-button" id="downloadButton" href="https://github.com/rockbeatspaper-coder/Forge-Executor/releases/latest" target="_blank" rel="noreferrer">
@@ -54,7 +57,7 @@
         <div class="hero-card" aria-label="Forge highlights">
           <div class="metric">
             <span>UI</span>
-            <strong>1.0.5</strong>
+            <strong>1.0.6</strong>
             <small>current channel</small>
           </div>
           <div class="metric">
@@ -78,9 +81,36 @@
 
         <div class="tab-shell">
           <div class="tab-controls" role="tablist" aria-label="Preview tabs">
+            <button class="tab-control" type="button" data-tab="dashboard">Dashboard</button>
             <button class="tab-control active" type="button" data-tab="editor">Editor</button>
+            <button class="tab-control" type="button" data-tab="scripts">Scripts</button>
             <button class="tab-control" type="button" data-tab="external">External</button>
             <button class="tab-control" type="button" data-tab="hub">Forge Hub</button>
+            <button class="tab-control" type="button" data-tab="ai">Forge AI</button>
+            <button class="tab-control" type="button" data-tab="installer">Installer</button>
+          </div>
+
+          <div class="preview-window dashboard-panel" data-panel="dashboard">
+            <div class="dash-preview-card wide">
+              <span>Runtime</span>
+              <strong>Forge is ready.</strong>
+              <p>Internal editor, external tools, ScriptBlox hub, and backend bridge under one dark shell.</p>
+            </div>
+            <div class="dash-preview-card">
+              <span>UNC</span>
+              <strong>99%</strong>
+              <p>Current pass profile</p>
+            </div>
+            <div class="dash-preview-card">
+              <span>sUNC</span>
+              <strong>99%</strong>
+              <p>Current pass profile</p>
+            </div>
+            <div class="dash-preview-card">
+              <span>Connection</span>
+              <strong>Offline</strong>
+              <p>Waiting for Roblox</p>
+            </div>
           </div>
 
           <div class="preview-window active" data-panel="editor">
@@ -115,10 +145,10 @@
                   <strong>Editor</strong>
                 </div>
                 <div class="window-controls">
-                  <span class="star">★</span>
-                  <span>−</span>
-                  <span>□</span>
-                  <span>×</span>
+                  <span class="star">AI</span>
+                  <span>-</span>
+                  <span>[]</span>
+                  <span>x</span>
                 </div>
               </div>
 
@@ -153,6 +183,22 @@
             </div>
           </div>
 
+          <div class="preview-window scripts-panel" data-panel="scripts">
+            <div class="script-search-preview">
+              <div class="search-preview-bar">
+                <span>Search ScriptBlox</span>
+                <button>Search</button>
+              </div>
+              <div class="script-list-preview">
+                <span class="active">Infinite Yield <small>verified - universal</small></span>
+                <span>ESP Library <small>community - no key</small></span>
+                <span>Utility Pack <small>updated recently</small></span>
+              </div>
+            </div>
+            <pre class="script-preview-code">-- Preview selected script
+loadstring(game:HttpGet("https://scriptblox.com/..."))()</pre>
+          </div>
+
           <div class="preview-window external-panel" data-panel="external">
             <div class="mini-panel">
               <span>External ESP</span>
@@ -168,7 +214,7 @@
 
           <div class="preview-window hub-panel" data-panel="hub">
             <div class="roblox-window">
-              <div class="roblox-top">Forge Hub <span>− x</span></div>
+              <div class="roblox-top">Forge Hub <span>- x</span></div>
               <div class="roblox-body">
                 <pre>print("Forge Hub ready")</pre>
                 <div class="roblox-side">
@@ -185,6 +231,61 @@
               </div>
             </div>
           </div>
+
+          <div class="preview-window ai-panel" data-panel="ai">
+            <div class="ai-preview-shell">
+              <div class="ai-preview-top">
+                <span>OpenRouter</span>
+                <strong>Forge-1.5</strong>
+              </div>
+              <div class="ai-preview-messages">
+                <p><b>Forge-1.5</b> Drop a Lua bug, UI idea, or workflow you want cleaned up.</p>
+                <p class="you"><b>You</b> Make a ScriptBlox search helper.</p>
+                <p><b>Forge-1.5</b> Here is a compact helper with debounce, preview state, and fallback logging.</p>
+              </div>
+              <div class="ai-preview-compose">Ask Forge-1.5 <button>Send</button></div>
+            </div>
+          </div>
+
+          <div class="preview-window installer-panel" data-panel="installer">
+            <div class="installer-preview">
+              <div class="installer-rail">
+                <span class="active">01</span>
+                <span>02</span>
+                <span>03</span>
+              </div>
+              <div class="installer-preview-body">
+                <span>Forge Setup</span>
+                <strong>Install Forge Executor</strong>
+                <p>Custom dark installer, automatic profile, desktop shortcuts, backend resources, and GitHub update support.</p>
+                <button>Install Forge</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="screens" id="screens">
+        <div class="section-heading">
+          <p class="eyebrow">Screens</p>
+          <h2>Everything feels like one client.</h2>
+        </div>
+        <div class="screen-grid">
+          <article>
+            <span>Editor</span>
+            <strong>Monaco workspace</strong>
+            <p>Tabs, diagnostics, Lua completion, file actions, and execution controls in a focused editor layout.</p>
+          </article>
+          <article>
+            <span>External</span>
+            <strong>Modules and Forge Hub</strong>
+            <p>ESP options, client scanner, and Forge Hub launcher are grouped into simple module cards.</p>
+          </article>
+          <article>
+            <span>Updater</span>
+            <strong>Silent install flow</strong>
+            <p>Forge checks GitHub on launch, shows a branded update modal, installs, and relaunches cleanly.</p>
+          </article>
         </div>
       </section>
 
@@ -209,6 +310,40 @@
           <h3>Forge Hub</h3>
           <p>A smooth in-game GUI shell named Forge Hub with an editor, console, quick scripts, and draggable controls.</p>
         </article>
+      </section>
+
+      <section class="release-section" id="releases">
+        <div>
+          <p class="eyebrow">Releases</p>
+          <h2>One button always grabs the newest setup.</h2>
+        </div>
+        <div class="release-card">
+          <span id="releaseCardName">Latest GitHub release</span>
+          <strong id="releaseCardVersion">Forge setup</strong>
+          <p>The download button reads GitHub releases and picks the newest Forge setup executable automatically.</p>
+          <a id="releaseCardLink" href="https://github.com/rockbeatspaper-coder/Forge-Executor/releases/latest" target="_blank" rel="noreferrer">Open latest release</a>
+        </div>
+      </section>
+
+      <section class="faq" id="faq">
+        <div class="section-heading">
+          <p class="eyebrow">FAQ</p>
+          <h2>Quick answers before download.</h2>
+        </div>
+        <div class="faq-grid">
+          <article>
+            <h3>How do updates work?</h3>
+            <p>Forge checks the latest GitHub release, downloads the matching setup, installs silently, and opens again.</p>
+          </article>
+          <article>
+            <h3>What does the installer include?</h3>
+            <p>The Electron client, backend bridge resources, icon, shortcuts, and updater metadata.</p>
+          </article>
+          <article>
+            <h3>What powers the editor?</h3>
+            <p>The desktop client uses Monaco with Lua syntax, diagnostics, completions, tabs, and file actions.</p>
+          </article>
+        </div>
       </section>
     </main>
   </div>
