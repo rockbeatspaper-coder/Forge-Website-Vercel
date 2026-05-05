@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#030504">
+  <meta name="description" content="Download Forge Client for Windows and preview the sleek Forge executor UI.">
+  <meta property="og:title" content="Forge Client">
+  <meta property="og:description" content="A bold black-and-green scripting workspace with Monaco, ScriptBlox, external tools, auto-update, and Forge Hub.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://getforge.vercel.app">
+  <title>Forge Client</title>
+  <link rel="preconnect" href="https://api.github.com">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="site-shell">
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="Forge home">
+        <span class="brand-mark">F</span>
+        <span>Forge</span>
+      </a>
+
+      <nav class="site-nav" aria-label="Primary">
+        <a href="#download">Download</a>
+        <a href="#overview">Overview</a>
+        <a href="#features">Features</a>
+      </nav>
+
+      <a class="header-download" href="https://github.com/rockbeatspaper-coder/Forge-Executor/releases/latest" target="_blank" rel="noreferrer">GitHub</a>
+    </header>
+
+    <main id="top">
+      <section class="hero" id="download">
+        <div class="hero-copy">
+          <p class="eyebrow">Forge Client</p>
+          <h1>Sharp scripts. Dark shell. Instant updates.</h1>
+          <p class="hero-subtitle">A blacked-out Monaco workspace with ScriptBlox search, external tools, Forge Hub, and GitHub-powered auto updates.</p>
+
+          <div class="hero-actions">
+            <a class="download-button" id="downloadButton" href="https://github.com/rockbeatspaper-coder/Forge-Executor/releases/latest" target="_blank" rel="noreferrer">
+              <span>Download for Windows</span>
+              <small id="downloadMeta">Fetching latest release...</small>
+            </a>
+            <a class="secondary-button" href="https://github.com/rockbeatspaper-coder/Forge-Executor/releases/latest" target="_blank" rel="noreferrer">View releases</a>
+          </div>
+
+          <div class="release-strip" aria-live="polite">
+            <span id="releaseName">Latest release</span>
+            <span id="releaseDate">GitHub releases</span>
+          </div>
+        </div>
+
+        <div class="hero-card" aria-label="Forge highlights">
+          <div class="metric">
+            <span>UI</span>
+            <strong>1.0.5</strong>
+            <small>current channel</small>
+          </div>
+          <div class="metric">
+            <span>Editor</span>
+            <strong>Lua</strong>
+            <small>Monaco syntax</small>
+          </div>
+          <div class="metric wide">
+            <span>Auto update</span>
+            <strong>GitHub latest</strong>
+            <small>setup, blockmap, latest.yml</small>
+          </div>
+        </div>
+      </section>
+
+      <section class="overview" id="overview">
+        <div class="section-heading">
+          <p class="eyebrow">Overview</p>
+          <h2>Forge looks native before it touches the desktop.</h2>
+        </div>
+
+        <div class="tab-shell">
+          <div class="tab-controls" role="tablist" aria-label="Preview tabs">
+            <button class="tab-control active" type="button" data-tab="editor">Editor</button>
+            <button class="tab-control" type="button" data-tab="external">External</button>
+            <button class="tab-control" type="button" data-tab="hub">Forge Hub</button>
+          </div>
+
+          <div class="preview-window active" data-panel="editor">
+            <aside class="preview-sidebar">
+              <div class="preview-brand">
+                <strong>Forge Client</strong>
+                <span>offline</span>
+              </div>
+              <div class="preview-nav">
+                <span>[] Dashboard</span>
+                <span class="active">&lt;/&gt; Editor</span>
+                <span>## External</span>
+                <span>{} Scripts</span>
+                <span>-- Settings</span>
+              </div>
+              <div class="preview-user">
+                <span>FG</span>
+                <div>
+                  <strong>forge</strong>
+                  <small>local session</small>
+                </div>
+              </div>
+            </aside>
+
+            <div class="preview-main">
+              <div class="preview-topbar">
+                <div class="crumbs">
+                  <span class="mini-logo"></span>
+                  <span>&gt;</span>
+                  <span>...</span>
+                  <span>&gt;</span>
+                  <strong>Editor</strong>
+                </div>
+                <div class="window-controls">
+                  <span class="star">★</span>
+                  <span>−</span>
+                  <span>□</span>
+                  <span>×</span>
+                </div>
+              </div>
+
+              <div class="preview-tabs">
+                <span class="script-tab">&lt;&gt; Script 1 <b>x</b></span>
+                <span class="plus">+</span>
+              </div>
+
+              <div class="editor-preview" aria-label="Monaco editor preview">
+                <div class="line"><b>1</b><code><span class="fn">print</span>(<span class="str">"Hello Forge!"</span>)</code></div>
+                <div class="line"><b>2</b><code><span class="comment">-- Monaco Lua workspace</span></code></div>
+              </div>
+
+              <div class="preview-actions">
+                <div>
+                  <button>Execute</button>
+                  <button>Open</button>
+                  <button>Save</button>
+                </div>
+                <div>
+                  <button>Inject</button>
+                  <button>Clients</button>
+                </div>
+              </div>
+
+              <div class="statusline">
+                <span>Script 1</span>
+                <span>0 issues</span>
+                <span>Lua 5.1</span>
+                <span>Monaco</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="preview-window external-panel" data-panel="external">
+            <div class="mini-panel">
+              <span>External ESP</span>
+              <strong>Player boxes, names, tracers, team check, distance.</strong>
+              <button>Run ESP</button>
+            </div>
+            <div class="mini-panel">
+              <span>External Modules</span>
+              <strong>Client scanner, overlay bridge, and Forge Hub launcher.</strong>
+              <button>Open External</button>
+            </div>
+          </div>
+
+          <div class="preview-window hub-panel" data-panel="hub">
+            <div class="roblox-window">
+              <div class="roblox-top">Forge Hub <span>− x</span></div>
+              <div class="roblox-body">
+                <pre>print("Forge Hub ready")</pre>
+                <div class="roblox-side">
+                  <strong>Quick scripts</strong>
+                  <span>Hello</span>
+                  <span>List players</span>
+                  <span>Destroy hub</span>
+                </div>
+              </div>
+              <div class="roblox-bottom">
+                <button>Execute</button>
+                <button>Clear</button>
+                <button>Reset</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="features" id="features">
+        <article>
+          <span>01</span>
+          <h3>Monaco Lua</h3>
+          <p>Syntax highlighting, diagnostics, completions, tabs, file open/save, and a black editor surface built for long sessions.</p>
+        </article>
+        <article>
+          <span>02</span>
+          <h3>ScriptBlox Hub</h3>
+          <p>Search verified, universal, and no-key scripts from the client, preview code, insert it, or execute directly.</p>
+        </article>
+        <article>
+          <span>03</span>
+          <h3>Auto Update</h3>
+          <p>Forge reads GitHub releases, downloads the latest setup, installs silently, and relaunches with a toast.</p>
+        </article>
+        <article>
+          <span>04</span>
+          <h3>Forge Hub</h3>
+          <p>A smooth in-game GUI shell named Forge Hub with an editor, console, quick scripts, and draggable controls.</p>
+        </article>
+      </section>
+    </main>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>
