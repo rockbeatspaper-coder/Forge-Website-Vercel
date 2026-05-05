@@ -26,7 +26,10 @@
     <nav class="nav-links" aria-label="Primary">
       <a href="#preview">Preview</a>
       <a href="#features">Features</a>
-      <a href="#setup">Setup</a>
+      <a href="download.html">Download</a>
+      <a href="docs.html">Docs</a>
+      <a href="status.html">Status</a>
+      <a href="changelog.html">Changelog</a>
       <a href="#releases">Releases</a>
       <a href="#faq">FAQ</a>
     </nav>
@@ -241,6 +244,36 @@
       </div>
     </section>
 
+    <section class="site-pages" id="pages">
+      <div class="section-heading">
+        <p class="eyebrow">Pages</p>
+        <h2>Everything users need before opening Forge.</h2>
+      </div>
+
+      <div class="page-card-grid">
+        <a class="page-card" href="download.html">
+          <span>Download</span>
+          <strong>Installer, zip, and release asset details.</strong>
+          <p>Clear download options, what each release file is for, and what the user should actually install.</p>
+        </a>
+        <a class="page-card" href="docs.html">
+          <span>Docs</span>
+          <strong>First-run guide and client layout.</strong>
+          <p>How to use the editor, Script Hub, External tab, AI sidebar, updater, and repair flow.</p>
+        </a>
+        <a class="page-card" href="status.html">
+          <span>Status</span>
+          <strong>Compatibility and update lane.</strong>
+          <p>Quick checks for release freshness, updater artifacts, install location, and known client states.</p>
+        </a>
+        <a class="page-card" href="changelog.html">
+          <span>Changelog</span>
+          <strong>What changed in recent builds.</strong>
+          <p>A public update timeline for UI overhauls, auto-update fixes, installer changes, and site updates.</p>
+        </a>
+      </div>
+    </section>
+
     <section class="setup" id="setup">
       <div class="setup-copy">
         <p class="eyebrow">Setup</p>
@@ -273,13 +306,19 @@
     <section class="faq" id="faq">
       <div class="section-heading">
         <p class="eyebrow">FAQ</p>
-        <h2>Quick notes.</h2>
+        <h2>Questions users actually ask.</h2>
       </div>
 
       <div class="faq-grid">
-        <article><h3>Do users download latest.yml?</h3><p>No. Forge reads updater metadata in the background. Users download the installer or zip.</p></article>
-        <article><h3>What should releases include?</h3><p>Upload the setup exe, blockmap, latest.yml, and public zip if you want the website to prefer a zip.</p></article>
-        <article><h3>Why use internal versions?</h3><p>Electron compares semver, so the internal version must be higher than the installed app version.</p></article>
+        <article><h3>Which file do I download?</h3><p>Use the main Forge setup or the public Forge zip. You do not need to manually download latest.yml or the blockmap.</p></article>
+        <article><h3>Why is there a latest.yml file?</h3><p>That file is for Forge auto-update. The app reads it from GitHub releases in the background to find the newest build.</p></article>
+        <article><h3>What if Forge says it is up to date?</h3><p>That usually means the uploaded updater version is not higher than the installed version, or GitHub has not finished serving the new release assets yet.</p></article>
+        <article><h3>Where does Forge install?</h3><p>The installer uses the standard Forge install path and includes the Electron client, backend resources, app icon, shortcuts, and updater metadata.</p></article>
+        <article><h3>How do updates work?</h3><p>Forge checks GitHub on launch. When a newer version is available, it shows the update prompt, installs in the background, relaunches, and shows an installed notification.</p></article>
+        <article><h3>What if update files are missing?</h3><p>Forge shows a repair popup that points users to reinstall with all required files instead of leaving the updater stuck.</p></article>
+        <article><h3>Does Forge include a script hub?</h3><p>Yes. The client has a Script Hub page designed around searching, previewing, inserting, and running scripts from a dedicated workflow.</p></article>
+        <article><h3>Does the editor support Luau?</h3><p>The editor uses Monaco with Lua/Luau-focused highlighting, snippets, diagnostics, tabs, and a Lua 5.1 runtime label in the statusbar.</p></article>
+        <article><h3>Why does Windows warn on install?</h3><p>New or unsigned Windows apps can trigger SmartScreen-style warnings. Make sure you are using the official Forge release link from this site or GitHub.</p></article>
       </div>
     </section>
   </main>
