@@ -6,6 +6,9 @@ const downloadButton = document.getElementById("downloadButton");
 const downloadMeta = document.getElementById("downloadMeta");
 const releaseName = document.getElementById("releaseName");
 const releaseDate = document.getElementById("releaseDate");
+const releaseCardName = document.getElementById("releaseCardName");
+const releaseCardVersion = document.getElementById("releaseCardVersion");
+const releaseCardLink = document.getElementById("releaseCardLink");
 
 document.querySelectorAll("[data-tab]").forEach((button) => {
   button.addEventListener("click", () => {
@@ -41,11 +44,17 @@ async function loadLatestRelease() {
     downloadMeta.textContent = `${version} - ${formatBytes(setup.size)}`;
     releaseName.textContent = release.name || version;
     releaseDate.textContent = release.published_at ? `Published ${formatDate(release.published_at)}` : "GitHub latest";
+    if (releaseCardName) releaseCardName.textContent = release.name || "Latest GitHub release";
+    if (releaseCardVersion) releaseCardVersion.textContent = `${version} setup`;
+    if (releaseCardLink) releaseCardLink.href = release.html_url || fallbackReleaseUrl;
   } catch (error) {
     downloadButton.href = fallbackReleaseUrl;
     downloadMeta.textContent = "Open latest GitHub release";
     releaseName.textContent = "Latest release";
     releaseDate.textContent = "GitHub releases";
+    if (releaseCardName) releaseCardName.textContent = "Latest GitHub release";
+    if (releaseCardVersion) releaseCardVersion.textContent = "Forge setup";
+    if (releaseCardLink) releaseCardLink.href = fallbackReleaseUrl;
     console.warn("Could not load latest Forge release", error);
   }
 }
