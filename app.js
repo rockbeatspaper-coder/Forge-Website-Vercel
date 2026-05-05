@@ -19,9 +19,6 @@ const releaseTargets = {
   updateLane: document.getElementById("updateLane")
 };
 
-const pages = Array.from(document.querySelectorAll("[data-page]"));
-const routes = new Set(pages.map((page) => page.dataset.page));
-
 document.querySelectorAll("[data-tab]").forEach((button) => {
   button.addEventListener("click", () => {
     const tab = button.dataset.tab;
@@ -36,38 +33,6 @@ document.querySelectorAll("[data-scroll-target]").forEach((button) => {
     if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
   });
 });
-
-function initRouter() {
-  syncRoute();
-  window.addEventListener("hashchange", syncRoute);
-}
-
-function syncRoute() {
-  const route = currentRoute();
-
-  pages.forEach((page) => {
-    page.classList.toggle("active", page.dataset.page === route);
-  });
-
-  document.querySelectorAll("[data-route]").forEach((link) => {
-    link.classList.toggle("active", routeFromHash(link.getAttribute("href")) === route);
-  });
-
-  document.body.dataset.route = route;
-  window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-}
-
-function currentRoute() {
-  return routeFromHash(window.location.hash);
-}
-
-function routeFromHash(value) {
-  const raw = String(value || "")
-    .replace(/^#\/?/, "")
-    .trim();
-
-  return routes.has(raw) ? raw : "home";
-}
 
 async function loadLatestRelease() {
   try {
@@ -192,5 +157,45 @@ function setHref(element, value) {
   if (element) element.href = value;
 }
 
-initRouter();
+initScrollNavigation();
 loadLatestRelease();
+
+function initScrollNavigation() {
+  const links = Array.from(document.querySelectorAll("[data-route]"));
+  const sections = links
+    .map((link) => document.getElementById(routeFromHash(link.getAttribute("href"))))
+    .filter(Boolean);
+
+  setActiveRoute(window.location.hash || "#home");
+  window.addEventListener("hashchange", () => setActiveRoute(window.location.hash || "#home"));
+
+  if (!("IntersectionObserver" in window)) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    const visible = entries
+      .filter((entry) => entry.isIntersecting)
+      .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+    if (visible?.target?.id) {
+      setActiveRoute(`#${visible.target.id}`);
+    }
+  }, {
+    rootMargin: "-34% 0px -56% 0px",
+    threshold: [0.08, 0.24, 0.45]
+  });
+
+  sections.forEach((section) => observer.observe(section));
+}
+
+function setActiveRoute(value) {
+  const route = routeFromHash(value);
+  document.querySelectorAll("[data-route]").forEach((link) => {
+    link.classList.toggle("active", routeFromHash(link.getAttribute("href")) === route);
+  });
+}
+
+function routeFromHash(value) {
+  return String(value || "")
+    .replace(/^#\/?/, "")
+    .trim() || "home";
+}
