@@ -31,38 +31,43 @@ async function loadLatestRelease() {
     }
 
     const release = await response.json();
-    const setup = Array.isArray(release.assets)
-      ? release.assets.find((asset) => /^Forge-Executor-Setup-.+\.exe$/i.test(asset.name))
-      : null;
+    const asset = selectDownloadAsset(release);
 
-    if (!setup?.browser_download_url) {
-      throw new Error("Latest release has no setup asset yet");
+    if (!asset?.browser_download_url) {
+      throw new Error("Latest release has no downloadable zip asset yet");
     }
 
-    const version = versionFromRelease(release, setup);
-    downloadButton.href = setup.browser_download_url;
-    downloadMeta.textContent = `${version} - ${formatBytes(setup.size)}`;
-    releaseName.textContent = release.name || version;
+    const version = releaseLabel(release);
+    downloadButton.href = asset.browser_download_url;
+    downloadMeta.textContent = `${version} - ${asset.name} - ${formatBytes(asset.size)}`;
+    releaseName.textContent = version;
     releaseDate.textContent = release.published_at ? `Published ${formatDate(release.published_at)}` : "GitHub latest";
-    if (releaseCardName) releaseCardName.textContent = release.name || "Latest GitHub release";
-    if (releaseCardVersion) releaseCardVersion.textContent = `${version} setup`;
-    if (releaseCardLink) releaseCardLink.href = release.html_url || fallbackReleaseUrl;
+    if (releaseCardName) releaseCardName.textContent = version;
+    if (releaseCardVersion) releaseCardVersion.textContent = asset.name;
+    if (releaseCardLink) releaseCardLink.href = asset.browser_download_url;
   } catch (error) {
     downloadButton.href = fallbackReleaseUrl;
     downloadMeta.textContent = "Open latest GitHub release";
     releaseName.textContent = "Latest release";
     releaseDate.textContent = "GitHub releases";
     if (releaseCardName) releaseCardName.textContent = "Latest GitHub release";
-    if (releaseCardVersion) releaseCardVersion.textContent = "Forge setup";
+    if (releaseCardVersion) releaseCardVersion.textContent = "Forge zip";
     if (releaseCardLink) releaseCardLink.href = fallbackReleaseUrl;
     console.warn("Could not load latest Forge release", error);
   }
 }
 
-function versionFromRelease(release, asset) {
-  const text = `${release.name || ""} ${release.tag_name || ""} ${asset.name || ""}`;
-  const match = text.match(/v?(\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?)/);
-  return match ? `v${match[1]}` : "Latest";
+function selectDownloadAsset(release) {
+  if (!Array.isArray(release.assets)) return null;
+
+  return release.assets.find((asset) => /\.zip$/i.test(asset.name))
+    || release.assets.find((asset) => /^Forge-Executor-Setup-.+\.exe$/i.test(asset.name))
+    || release.assets[0]
+    || null;
+}
+
+function releaseLabel(release) {
+  return release.name || release.tag_name || "Latest release";
 }
 
 function formatBytes(bytes) {
