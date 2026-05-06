@@ -1,42 +1,29 @@
 const repo = "rockbeatspaper-coder/Forge-Executor";
-const latestReleaseUrl = `https://api.github.com/repos/${repo}/releases/latest`;
-const fallbackReleaseUrl = `https://github.com/${repo}/releases/latest`;
+const releasesApiUrl = `https://api.github.com/repos/${repo}/releases?per_page=12`;
+const releasesPageUrl = `https://github.com/${repo}/releases`;
+const latestPageUrl = `https://github.com/${repo}/releases/latest`;
 
-const releaseTargets = {
-  downloadButton: document.getElementById("downloadButton"),
-  downloadMeta: document.getElementById("downloadMeta"),
-  releaseName: document.getElementById("releaseName"),
-  releaseDate: document.getElementById("releaseDate"),
-  releaseCardName: document.getElementById("releaseCardName"),
-  releaseCardVersion: document.getElementById("releaseCardVersion"),
-  releaseCardText: document.getElementById("releaseCardText"),
-  releaseCardLink: document.getElementById("releaseCardLink"),
-  currentChannelName: document.getElementById("currentChannelName"),
-  currentChannelMeta: document.getElementById("currentChannelMeta"),
-  heroChannelName: document.getElementById("heroChannelName"),
-  assetName: document.getElementById("assetName"),
-  assetSize: document.getElementById("assetSize"),
-  updateLane: document.getElementById("updateLane")
+const downloadLinks = Array.from(document.querySelectorAll("[data-download-link]"));
+const githubLinks = Array.from(document.querySelectorAll("[data-github-link]"));
+
+const releaseState = {
+  channelName: "Checking GitHub...",
+  releaseKind: "Live feed",
+  publishedDate: "Waiting for release data",
+  assetName: "Forge setup",
+  assetSize: "Checking",
+  downloadSource: "GitHub releases",
+  downloadMeta: "Fetching latest release...",
+  releaseNote: "Forge will choose the newest attached Forge zip or setup installer automatically.",
+  fallbackText: "If the newest channel has no package attached yet, the button opens the best available Forge release."
 };
 
-document.querySelectorAll("[data-tab]").forEach((button) => {
-  button.addEventListener("click", () => {
-    const tab = button.dataset.tab;
-    document.querySelectorAll("[data-tab]").forEach((item) => item.classList.toggle("active", item === button));
-    document.querySelectorAll("[data-panel]").forEach((panel) => panel.classList.toggle("active", panel.dataset.panel === tab));
-  });
-});
+initNavigation();
+loadReleaseFeed();
 
-document.querySelectorAll("[data-scroll-target]").forEach((button) => {
-  button.addEventListener("click", () => {
-    const target = document.getElementById(button.dataset.scrollTarget);
-    if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
-  });
-});
-
-async function loadLatestRelease() {
+async function loadReleaseFeed() {
   try {
-    const response = await fetch(latestReleaseUrl, {
+    const response = await fetch(releasesApiUrl, {
       headers: {
         Accept: "application/vnd.github+json"
       }
@@ -46,75 +33,133 @@ async function loadLatestRelease() {
       throw new Error(`GitHub returned ${response.status}`);
     }
 
-    const release = await response.json();
-    const asset = selectDownloadAsset(release);
+    const releases = (await response.json())
+      .filter((release) => release && !release.draft);
 
-    if (!asset?.browser_download_url) {
-      throw new Error("Latest release has no downloadable Forge asset yet");
+    if (!releases.length) {
+      throw new Error("No public Forge releases were found");
     }
 
-    applyReleaseState(release, asset);
+    const channelRelease = releases[0];
+    const downloadable = findDownloadableRelease(releases);
+
+    if (!downloadable) {
+      applyReleaseState(channelRelease, null, null);
+      return;
+    }
+
+    applyReleaseState(channelRelease, downloadable.release, downloadable.asset);
   } catch (error) {
     applyFallbackState(error);
   }
 }
 
-function applyReleaseState(release, asset) {
-  const label = releaseLabel(release);
-  const published = release.published_at ? `Published ${formatDate(release.published_at)}` : "GitHub latest";
-  const assetLabel = cleanAssetName(asset.name);
-  const meta = `${assetLabel} - ${formatBytes(asset.size)}`;
-  const assetType = /\.zip$/i.test(asset.name) ? "zip package" : "setup installer";
+function findDownloadableRelease(releases) {
+  for (const release of releases) {
+    const asset = selectDownloadAsset(release);
+    if (asset) {
+      return { release, asset };
+    }
+  }
 
-  setTextByKey("releaseName", label);
-  setTextByKey("releaseDate", published);
-  setTextByKey("currentChannelName", label);
-  setTextByKey("currentChannelMeta", release.prerelease ? "prerelease channel" : "stable release channel");
-  setTextByKey("heroChannelName", label);
-  setTextByKey("assetName", assetLabel);
-  setTextByKey("assetSize", `${formatBytes(asset.size)} ${assetType}`);
-  setTextByKey("updateLane", release.prerelease ? "GitHub prerelease" : "GitHub latest");
-  setTextByKey("downloadMeta", `${label} - ${meta}`);
-  setTextByKey("releaseCardName", label);
-  setTextByKey("releaseCardVersion", assetLabel);
-  setTextByKey("releaseCardText", `The download is currently using the ${assetType} attached to ${label}.`);
-
-  setHrefByKey("downloadButton", asset.browser_download_url);
-  setHrefByKey("releaseCardLink", asset.browser_download_url);
-}
-
-function applyFallbackState(error) {
-  setHrefByKey("downloadButton", fallbackReleaseUrl);
-  setHrefByKey("releaseCardLink", fallbackReleaseUrl);
-  setTextByKey("downloadMeta", "Open latest GitHub release");
-  setTextByKey("releaseName", "Latest release");
-  setTextByKey("releaseDate", "GitHub releases");
-  setTextByKey("currentChannelName", "Latest release");
-  setTextByKey("currentChannelMeta", "GitHub release feed");
-  setTextByKey("heroChannelName", "Forge Client");
-  setTextByKey("assetName", "Forge setup");
-  setTextByKey("assetSize", "Open GitHub releases");
-  setTextByKey("updateLane", "GitHub latest");
-  setTextByKey("releaseCardName", "Latest GitHub release");
-  setTextByKey("releaseCardVersion", "Forge zip");
-  setTextByKey("releaseCardText", "Could not read the GitHub API from this browser session, so this opens the latest release page.");
-  console.warn("Could not load latest Forge release", error);
+  return null;
 }
 
 function selectDownloadAsset(release) {
   if (!Array.isArray(release.assets)) return null;
 
-  const assets = release.assets.filter((asset) => asset?.browser_download_url);
+  const assets = release.assets
+    .filter((asset) => asset?.browser_download_url)
+    .filter((asset) => !/latest\.ya?ml|\.blockmap$/i.test(asset.name || ""));
+
   return assets.find((asset) => /\.zip$/i.test(asset.name) && /forge/i.test(asset.name))
     || assets.find((asset) => /^Forge-Executor-Setup-.+\.exe$/i.test(asset.name))
     || assets.find((asset) => /\.zip$/i.test(asset.name))
     || assets.find((asset) => /\.exe$/i.test(asset.name))
-    || assets[0]
     || null;
 }
 
+function applyReleaseState(channelRelease, downloadRelease, asset) {
+  const channelName = releaseLabel(channelRelease);
+  const channelKind = releaseKindLabel(channelRelease);
+  const publishedDate = channelRelease.published_at
+    ? `Published ${formatDate(channelRelease.published_at)}`
+    : "Published on GitHub";
+
+  if (!asset || !downloadRelease) {
+    setReleaseValues({
+      channelName,
+      releaseKind: channelKind,
+      publishedDate,
+      assetName: "No package attached yet",
+      assetSize: "Open GitHub release",
+      downloadSource: "Release page",
+      downloadMeta: `${channelName} - no download asset yet`,
+      releaseNote: "This channel exists on GitHub, but it does not have a Forge zip or setup installer attached yet.",
+      fallbackText: "Attach a Forge zip or setup installer to this release and the button will switch to that asset automatically."
+    });
+    setDownloadTarget(channelRelease.html_url || releasesPageUrl);
+    setGitHubTarget(channelRelease.html_url || releasesPageUrl);
+    return;
+  }
+
+  const downloadName = releaseLabel(downloadRelease);
+  const assetName = cleanAssetName(asset.name);
+  const assetSize = formatBytes(asset.size);
+  const sameRelease = channelRelease.id === downloadRelease.id;
+  const assetType = /\.zip$/i.test(asset.name) ? "zip package" : "setup installer";
+
+  setReleaseValues({
+    channelName,
+    releaseKind: channelKind,
+    publishedDate,
+    assetName,
+    assetSize,
+    downloadSource: sameRelease ? "Current channel" : downloadName,
+    downloadMeta: sameRelease
+      ? `${channelName} - ${assetSize} ${assetType}`
+      : `${downloadName} - ${assetSize} ${assetType}`,
+    releaseNote: sameRelease
+      ? `Downloading the ${assetType} attached to ${channelName}.`
+      : `${channelName} is the newest channel, but the download is using the newest attached package from ${downloadName}.`,
+    fallbackText: sameRelease
+      ? "The newest channel has a downloadable Forge package attached."
+      : "The newest channel has no Forge package attached yet, so the site uses the newest available package."
+  });
+
+  setDownloadTarget(asset.browser_download_url);
+  setGitHubTarget(downloadRelease.html_url || latestPageUrl);
+}
+
+function applyFallbackState(error) {
+  setReleaseValues({
+    channelName: "GitHub releases",
+    releaseKind: "Offline fallback",
+    publishedDate: "Could not read the release feed",
+    assetName: "Forge release page",
+    assetSize: "Open GitHub",
+    downloadSource: "GitHub releases",
+    downloadMeta: "Open Forge releases on GitHub",
+    releaseNote: "The browser could not read GitHub right now, so the button opens the releases page.",
+    fallbackText: "If the live feed is rate limited or blocked, GitHub releases still has the current downloads."
+  });
+
+  setDownloadTarget(releasesPageUrl);
+  setGitHubTarget(releasesPageUrl);
+  console.warn("Could not load Forge releases", error);
+}
+
 function releaseLabel(release) {
-  return release.name || release.tag_name || "Latest release";
+  return release?.name || release?.tag_name || "Latest release";
+}
+
+function releaseKindLabel(release) {
+  const label = releaseLabel(release);
+  if (release?.prerelease || /alpha/i.test(label)) return "Alpha channel";
+  if (/beta/i.test(label)) return "Beta channel";
+  if (/(?:^|[-.])rc(?:[-.]|\d|$)/i.test(label)) return "Release candidate";
+  if (/snapshot/i.test(label)) return "Snapshot channel";
+  return "Stable channel";
 }
 
 function cleanAssetName(name = "") {
@@ -139,63 +184,56 @@ function formatDate(value) {
   }).format(new Date(value));
 }
 
-function setTextByKey(key, value) {
-  setText(releaseTargets[key], value);
-  document.querySelectorAll(`[data-release="${key}"]`).forEach((element) => setText(element, value));
+function setReleaseValues(values) {
+  Object.assign(releaseState, values);
+
+  for (const [key, value] of Object.entries(releaseState)) {
+    document.querySelectorAll(`[data-release="${key}"]`).forEach((element) => {
+      element.textContent = value;
+    });
+  }
 }
 
-function setHrefByKey(key, value) {
-  setHref(releaseTargets[key], value);
-  document.querySelectorAll(`[data-release-href="${key}"]`).forEach((element) => setHref(element, value));
+function setDownloadTarget(url) {
+  downloadLinks.forEach((link) => {
+    link.href = url;
+  });
 }
 
-function setText(element, value) {
-  if (element) element.textContent = value;
+function setGitHubTarget(url) {
+  githubLinks.forEach((link) => {
+    link.href = url;
+  });
 }
 
-function setHref(element, value) {
-  if (element) element.href = value;
-}
-
-initScrollNavigation();
-loadLatestRelease();
-
-function initScrollNavigation() {
-  const links = Array.from(document.querySelectorAll("[data-route]"));
-  const sections = links
-    .map((link) => document.getElementById(routeFromHash(link.getAttribute("href"))))
+function initNavigation() {
+  const navLinks = Array.from(document.querySelectorAll(".nav-links a"));
+  const sections = navLinks
+    .map((link) => document.querySelector(link.getAttribute("href")))
     .filter(Boolean);
 
-  setActiveRoute(window.location.hash || "#home");
-  window.addEventListener("hashchange", () => setActiveRoute(window.location.hash || "#home"));
+  navLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      navLinks.forEach((item) => item.classList.toggle("active", item === link));
+    });
+  });
 
-  if (!("IntersectionObserver" in window)) return;
+  if (!("IntersectionObserver" in window) || !sections.length) return;
 
   const observer = new IntersectionObserver((entries) => {
-    const visible = entries
+    const activeEntry = entries
       .filter((entry) => entry.isIntersecting)
       .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
 
-    if (visible?.target?.id) {
-      setActiveRoute(`#${visible.target.id}`);
-    }
+    if (!activeEntry) return;
+
+    navLinks.forEach((link) => {
+      link.classList.toggle("active", link.getAttribute("href") === `#${activeEntry.target.id}`);
+    });
   }, {
-    rootMargin: "-34% 0px -56% 0px",
-    threshold: [0.08, 0.24, 0.45]
+    rootMargin: "-35% 0px -55% 0px",
+    threshold: [0.1, 0.25, 0.5]
   });
 
   sections.forEach((section) => observer.observe(section));
-}
-
-function setActiveRoute(value) {
-  const route = routeFromHash(value);
-  document.querySelectorAll("[data-route]").forEach((link) => {
-    link.classList.toggle("active", routeFromHash(link.getAttribute("href")) === route);
-  });
-}
-
-function routeFromHash(value) {
-  return String(value || "")
-    .replace(/^#\/?/, "")
-    .trim() || "home";
 }
