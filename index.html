@@ -3,326 +3,287 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#050506">
-  <meta name="description" content="Download Forge Client for Windows and preview the Forge executor interface.">
-  <meta property="og:title" content="Forge Client">
-  <meta property="og:description" content="A dark Windows executor client with Monaco, Script Hub, external tools, AI sidebar, and GitHub auto-update.">
+  <meta name="theme-color" content="#000000">
+  <meta name="description" content="Download Forge Client for Windows. A dark desktop executor client with Monaco editor, GitHub updates, and a Forge styled installer.">
+  <meta property="og:title" content="Forge Client Download">
+  <meta property="og:description" content="Download the latest Forge Client release from GitHub.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://getforge.vercel.app">
-  <title>Forge Client</title>
+  <title>Forge Client - Download</title>
   <link rel="icon" href="./Forge Executor.ico">
   <link rel="preconnect" href="https://api.github.com">
-  <link rel="stylesheet" href="./styles.css?v=forge-real-site-2">
+  <link rel="stylesheet" href="./styles.css?v=forge-download-2">
+  <script src="./app.js?v=forge-download-2" defer></script>
 </head>
 <body>
-  <div class="page-glow" aria-hidden="true"></div>
-
   <header class="site-header">
     <a class="brand" href="#top" aria-label="Forge home">
       <img src="./Forge Executor.ico" alt="" aria-hidden="true">
       <span>Forge</span>
     </a>
 
-    <nav class="nav-links" aria-label="Primary">
+    <nav class="nav-links" aria-label="Page sections">
+      <a href="#download">Download</a>
       <a href="#preview">Preview</a>
-      <a href="#features">Features</a>
-      <a href="download.html">Download</a>
-      <a href="docs.html">Docs</a>
-      <a href="status.html">Status</a>
-      <a href="changelog.html">Changelog</a>
-      <a href="#releases">Releases</a>
-      <a href="#faq">FAQ</a>
+      <a href="#updates">Updates</a>
+      <a href="#questions">Questions</a>
     </nav>
 
-    <a class="nav-download" href="https://github.com/rockbeatspaper-coder/Forge-Executor/releases/latest" target="_blank" rel="noreferrer">GitHub</a>
+    <a class="header-action" data-github-link href="https://github.com/rockbeatspaper-coder/Forge-Executor/releases/latest" target="_blank" rel="noreferrer">GitHub</a>
   </header>
 
   <main id="top">
-    <section class="hero" id="download">
+    <section class="hero" aria-labelledby="heroTitle">
       <div class="hero-copy">
-        <div class="release-pill">
+        <div class="channel-pill">
           <span>Current channel</span>
-          <strong id="currentChannelName">Latest release</strong>
+          <strong data-release="channelName">Checking GitHub...</strong>
         </div>
 
-        <p class="eyebrow">Forge Client</p>
-        <h1>A polished Windows executor experience.</h1>
-        <p class="hero-subtitle">Forge is a dark desktop client with a Monaco editor, Script Hub, external tools, AI sidebar, custom installer, and GitHub-powered updates.</p>
+        <p class="eyebrow">Windows client download</p>
+        <h1 id="heroTitle">Forge Client</h1>
+        <p class="hero-subtitle">A black desktop workspace for scripts, Monaco editing, release updates, and a Forge styled setup flow. This page exists for one thing: getting the latest Forge build onto your PC.</p>
 
         <div class="hero-actions">
-          <a class="primary-download" id="downloadButton" href="https://github.com/rockbeatspaper-coder/Forge-Executor/releases/latest" target="_blank" rel="noreferrer">
+          <a class="download-button" id="downloadButton" data-download-link href="https://github.com/rockbeatspaper-coder/Forge-Executor/releases/latest" target="_blank" rel="noreferrer">
             <span>Download Forge</span>
-            <small id="downloadMeta">Fetching latest release...</small>
+            <small data-release="downloadMeta">Fetching latest release...</small>
           </a>
-          <a class="secondary-link" href="#preview">View interface</a>
+          <a class="secondary-button" data-github-link href="https://github.com/rockbeatspaper-coder/Forge-Executor/releases/latest" target="_blank" rel="noreferrer">Open release</a>
         </div>
 
-        <div class="hero-meta">
-          <span id="currentChannelMeta">GitHub release feed</span>
-          <span id="releaseDate">GitHub releases</span>
-          <span>Windows build</span>
+        <div class="hero-badges" aria-label="Forge summary">
+          <span>Windows</span>
+          <span>Monaco</span>
+          <span>GitHub updater</span>
+          <span>Custom installer</span>
         </div>
       </div>
 
-      <div class="hero-preview" aria-label="Forge client preview">
-        <div class="client-window">
-          <aside class="client-sidebar">
-            <div class="client-brand">
+      <aside class="release-panel" id="download" aria-label="Latest download">
+        <div class="panel-topline">
+          <span>Release</span>
+          <strong data-release="releaseKind">Live feed</strong>
+        </div>
+
+        <div class="release-name">
+          <span data-release="channelName">Checking GitHub...</span>
+          <strong data-release="publishedDate">Waiting for release data</strong>
+        </div>
+
+        <div class="release-fields">
+          <div>
+            <span>Download file</span>
+            <strong data-release="assetName">Forge setup</strong>
+          </div>
+          <div>
+            <span>Package size</span>
+            <strong data-release="assetSize">Checking</strong>
+          </div>
+          <div>
+            <span>Download source</span>
+            <strong data-release="downloadSource">GitHub releases</strong>
+          </div>
+        </div>
+
+        <p class="release-note" data-release="releaseNote">Forge will choose the newest attached Forge zip or setup installer automatically.</p>
+
+        <a class="panel-download" data-download-link href="https://github.com/rockbeatspaper-coder/Forge-Executor/releases/latest" target="_blank" rel="noreferrer">
+          Download current build
+        </a>
+      </aside>
+    </section>
+
+    <section class="quick-strip" aria-label="Release status">
+      <article>
+        <span>Channel</span>
+        <strong data-release="channelName">Checking</strong>
+      </article>
+      <article>
+        <span>Asset</span>
+        <strong data-release="assetName">Forge setup</strong>
+      </article>
+      <article>
+        <span>Updater</span>
+        <strong>GitHub</strong>
+      </article>
+      <article>
+        <span>Install</span>
+        <strong>Windows setup</strong>
+      </article>
+    </section>
+
+    <section class="preview-section" id="preview" aria-labelledby="previewTitle">
+      <div class="section-heading">
+        <p class="eyebrow">Preview</p>
+        <h2 id="previewTitle">The Forge window, right on the page.</h2>
+        <p>The download should feel like the app it installs, so the site uses the same black workspace language as the client.</p>
+      </div>
+
+      <div class="executor-frame" aria-label="Forge client interface preview">
+        <aside class="executor-sidebar">
+          <div class="executor-brand">
+            <img src="./Forge Executor.ico" alt="" aria-hidden="true">
+            <div>
+              <strong>Forge</strong>
+              <span>offline</span>
+            </div>
+          </div>
+
+          <div class="search-box">Search Explorer...</div>
+
+          <nav class="executor-nav" aria-label="Preview navigation">
+            <span class="active">New Tab 1</span>
+            <span>External</span>
+            <span>Script Hub</span>
+            <span>Dashboard</span>
+            <span>Settings</span>
+          </nav>
+
+          <div class="session-box">
+            <div><span>Runtime</span><strong>Forge Runtime</strong></div>
+            <div><span>Language</span><strong>Lua 5.1</strong></div>
+            <div><span>Editor</span><strong>Monaco</strong></div>
+          </div>
+        </aside>
+
+        <section class="executor-main">
+          <header class="executor-topbar">
+            <div class="executor-title">
               <img src="./Forge Executor.ico" alt="" aria-hidden="true">
-              <div>
-                <strong>Forge</strong>
-                <span>offline</span>
-              </div>
+              <strong>Editor</strong>
             </div>
-
-            <div class="client-search">Search Explorer...</div>
-
-            <div class="client-nav">
-              <span class="active">New Tab 1</span>
-              <span>External</span>
-              <span>Script Hub</span>
-              <span>Dashboard</span>
-              <span>Settings</span>
+            <span class="executor-version" data-release="channelName">Forge Client</span>
+            <div class="window-buttons" aria-hidden="true">
+              <i></i><i></i><i></i>
             </div>
+          </header>
 
-            <div class="client-session">
-              <div><span>Runtime</span><strong>Forge Runtime</strong></div>
-              <div><span>Language</span><strong>Lua 5.1</strong></div>
-              <div><span>Editor</span><strong>Monaco</strong></div>
+          <div class="tab-row">
+            <span class="active">New Tab 1 <b>x</b></span>
+            <button type="button" aria-label="New tab">+</button>
+          </div>
+
+          <div class="editor-preview" aria-label="Monaco editor preview">
+            <span>1</span><code><b>print</b>(<em>"Hello Forge!"</em>)</code>
+            <span>2</span><code><i>-- OpenRouter autocomplete ready</i></code>
+            <span>3</span><code><strong>local</strong> Players = game:GetService(<em>"Players"</em>)</code>
+            <span>4</span><code><strong>while</strong> true <strong>do</strong></code>
+            <span>5</span><code>&nbsp;&nbsp;task.wait(<u>1</u>)</code>
+            <span>6</span><code><strong>end</strong></code>
+          </div>
+
+          <div class="action-bar">
+            <div>
+              <button class="primary-action">Execute</button>
+              <button>Clear</button>
+              <button>Open</button>
+              <button>Save</button>
             </div>
-
-            <div class="client-user">
-              <span>FG</span>
-              <div><strong>forge</strong><small>local session</small></div>
+            <div>
+              <button>Inject</button>
+              <button>Clients</button>
             </div>
-          </aside>
+          </div>
 
-          <section class="client-main">
-            <header class="client-topbar">
-              <div class="client-title">
-                <img src="./Forge Executor.ico" alt="" aria-hidden="true">
-                <strong>Editor</strong>
-              </div>
-              <div class="client-version" id="releaseName">Latest release</div>
-              <div class="client-controls">
-                <span>Forge Runtime</span>
-                <span>Lua 5.1</span>
-                <button class="ai-star" type="button" aria-label="Forge AI">
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8l2.62 5.86 6.38.68-4.76 4.3 1.33 6.28L12 16.7l-5.57 3.22 1.33-6.28L3 9.34l6.38-.68L12 2.8z"/></svg>
-                </button>
-                <i></i><i></i><i></i>
-              </div>
-            </header>
-
-            <div class="client-tabs">
-              <span class="active">New Tab 1 <b>x</b></span>
-              <button type="button" aria-label="New tab">+</button>
-            </div>
-
-            <div class="editor-surface">
-              <div>1</div><code><span class="fn">print</span>(<span class="str">"Hello Forge!"</span>)</code>
-              <div>2</div><code><span class="comment">-- Monaco Luau workspace</span></code>
-              <div>3</div><code><span class="kw">local</span> Players = <span class="fn">game</span>:GetService(<span class="str">"Players"</span>)</code>
-              <div>4</div><code><span class="kw">while</span> <span class="num">true</span> <span class="kw">do</span></code>
-              <div>5</div><code>  <span class="fn">task</span>.wait(<span class="num">1</span>)</code>
-              <div>6</div><code><span class="kw">end</span></code>
-            </div>
-
-            <div class="client-actions">
-              <div>
-                <button class="run">Execute</button>
-                <button>Clear</button>
-                <button>Open</button>
-                <button>Save</button>
-              </div>
-              <div>
-                <button>Inject</button>
-                <button>Clients</button>
-              </div>
-            </div>
-
-            <div class="client-output">
-              <div><strong>Output</strong><span id="heroChannelName">Forge Client</span></div>
-              <pre>[22:32:14] - Loaded -> /Tab.json
+          <div class="output-pane">
+            <div><strong>Output</strong><span>0 issues</span></div>
+            <pre>[22:32:14] - Loaded -> /Tab.json
 [22:32:14] - Welcome to Forge
-[22:32:15] - Supported version -> version-acc4b74f79e743b9
+[22:32:15] - Current channel -> <span data-release="channelName">checking</span>
 [22:32:15] - Watcher started.</pre>
-            </div>
-
-            <footer class="client-status">
-              <span>Script 1</span>
-              <span>0 issues</span>
-              <span>Lua 5.1</span>
-              <span>Monaco</span>
-            </footer>
-          </section>
-        </div>
+          </div>
+        </section>
       </div>
     </section>
 
-    <section class="signal-grid" aria-label="Forge status">
-      <article>
-        <span>Download asset</span>
-        <strong id="assetName">Forge setup</strong>
-        <small id="assetSize">Waiting for GitHub</small>
-      </article>
-      <article>
-        <span>Update lane</span>
-        <strong id="updateLane">GitHub latest</strong>
-        <small>setup, blockmap, latest.yml</small>
-      </article>
-      <article>
-        <span>Editor</span>
-        <strong>Monaco</strong>
-        <small>Luau syntax, Lua 5.1 footer</small>
-      </article>
-      <article>
-        <span>Installer</span>
-        <strong>Custom UI</strong>
-        <small>Forge styled setup flow</small>
-      </article>
-    </section>
-
-    <section class="preview-section" id="preview">
-      <div class="section-heading">
-        <p class="eyebrow">Interface</p>
-        <h2>Everything feels like one client.</h2>
+    <section class="download-section" aria-labelledby="downloadTitle">
+      <div class="section-heading compact">
+        <p class="eyebrow">Install</p>
+        <h2 id="downloadTitle">Download, run, update.</h2>
       </div>
 
-      <div class="preview-grid">
-        <article class="preview-card editor-card">
-          <span>Editor</span>
-          <strong>Monaco tabs, output, actions.</strong>
-          <p>Write scripts in a focused black editor surface with workspace tabs, syntax coloring, output logs, and execution controls in the same frame.</p>
-        </article>
-        <article class="preview-card">
-          <span>External</span>
-          <strong>ESP and client tools.</strong>
-          <p>External modules sit beside the editor with toggles, attach state, and compact module cards.</p>
-        </article>
-        <article class="preview-card">
-          <span>Script Hub</span>
-          <strong>ScriptBlox workflow.</strong>
-          <p>Search, preview, insert, and execute community scripts from a dedicated client tab.</p>
-        </article>
-        <article class="preview-card">
-          <span>Forge AI</span>
-          <strong>Toggleable sidebar.</strong>
-          <p>A star button opens the assistant panel for quick Lua help, debugging notes, and UI iteration.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="features" id="features">
-      <div class="section-heading">
-        <p class="eyebrow">Details</p>
-        <h2>Built for fast sessions.</h2>
-      </div>
-
-      <div class="feature-rows">
+      <div class="install-grid">
         <article>
           <span>01</span>
-          <div>
-            <h3>Dark executor shell</h3>
-            <p>Black window chrome, compact explorer, output dock, topbar controls, and a real desktop layout.</p>
-          </div>
+          <h3>Download the attached build</h3>
+          <p>The button uses the newest Forge zip or setup installer attached to GitHub releases.</p>
         </article>
         <article>
           <span>02</span>
-          <div>
-            <h3>Luau-friendly editor</h3>
-            <p>Monaco syntax, useful snippets, diagnostics, file open/save, tabs, and Lua 5.1 status metadata.</p>
-          </div>
+          <h3>Run the Forge installer</h3>
+          <p>The setup uses Forge branding, the app icon, shortcuts, and the updater metadata the app needs.</p>
         </article>
         <article>
           <span>03</span>
-          <div>
-            <h3>Automatic updates</h3>
-            <p>Forge checks GitHub releases, installs new builds in the background, and handles missing update files with a repair flow.</p>
-          </div>
+          <h3>Let Forge update itself</h3>
+          <p>Forge checks GitHub on startup and prompts when a newer version is available.</p>
         </article>
       </div>
     </section>
 
-    <section class="site-pages" id="pages">
+    <section class="updates-section" id="updates" aria-labelledby="updatesTitle">
       <div class="section-heading">
-        <p class="eyebrow">Pages</p>
-        <h2>Everything users need before opening Forge.</h2>
+        <p class="eyebrow">Update lane</p>
+        <h2 id="updatesTitle">Release info stays live.</h2>
+        <p>The page checks GitHub directly, shows the newest channel name, and downloads the newest attached Forge package when one exists.</p>
       </div>
 
-      <div class="page-card-grid">
-        <a class="page-card" href="download.html">
-          <span>Download</span>
-          <strong>Installer, zip, and release asset details.</strong>
-          <p>Clear download options, what each release file is for, and what the user should actually install.</p>
-        </a>
-        <a class="page-card" href="docs.html">
-          <span>Docs</span>
-          <strong>First-run guide and client layout.</strong>
-          <p>How to use the editor, Script Hub, External tab, AI sidebar, updater, and repair flow.</p>
-        </a>
-        <a class="page-card" href="status.html">
-          <span>Status</span>
-          <strong>Compatibility and update lane.</strong>
-          <p>Quick checks for release freshness, updater artifacts, install location, and known client states.</p>
-        </a>
-        <a class="page-card" href="changelog.html">
-          <span>Changelog</span>
-          <strong>What changed in recent builds.</strong>
-          <p>A public update timeline for UI overhauls, auto-update fixes, installer changes, and site updates.</p>
-        </a>
+      <div class="status-grid">
+        <article>
+          <span>Newest channel</span>
+          <strong data-release="channelName">Checking GitHub</strong>
+          <p data-release="publishedDate">Waiting for release data.</p>
+        </article>
+        <article>
+          <span>Download package</span>
+          <strong data-release="assetName">Forge setup</strong>
+          <p data-release="assetSize">Checking asset size.</p>
+        </article>
+        <article>
+          <span>Fallback behavior</span>
+          <strong>Release page</strong>
+          <p data-release="fallbackText">If the newest channel has no package attached yet, the button opens the best available Forge release.</p>
+        </article>
       </div>
     </section>
 
-    <section class="setup" id="setup">
-      <div class="setup-copy">
-        <p class="eyebrow">Setup</p>
-        <h2>Download, install, relaunch.</h2>
-        <p>The website pulls the newest GitHub release automatically and points the button at the best available Forge asset.</p>
+    <section class="questions-section" id="questions" aria-labelledby="questionsTitle">
+      <div class="section-heading compact">
+        <p class="eyebrow">Before downloading</p>
+        <h2 id="questionsTitle">Quick answers.</h2>
       </div>
 
-      <div class="setup-steps">
-        <article><span>1</span><strong>Download</strong><p>Grab the latest Forge setup or zip from the release feed.</p></article>
-        <article><span>2</span><strong>Install</strong><p>Run the custom installer with the Forge icon and fixed app resources.</p></article>
-        <article><span>3</span><strong>Update</strong><p>Future builds are checked on launch through GitHub releases.</p></article>
+      <div class="question-grid">
+        <article>
+          <h3>Which file should I download?</h3>
+          <p>Use the main button. It prefers a Forge zip, then a setup installer, and ignores updater-only files like blockmaps and latest.yml.</p>
+        </article>
+        <article>
+          <h3>Do I need latest.yml?</h3>
+          <p>No. That file is for Forge auto-update. Users only need the setup or zip package.</p>
+        </article>
+        <article>
+          <h3>What if the newest channel has no package?</h3>
+          <p>The site shows the newest channel name, then uses the newest downloadable Forge asset it can find.</p>
+        </article>
+        <article>
+          <h3>Why does Windows warn on install?</h3>
+          <p>New Windows apps can show SmartScreen warnings. Use only this site or the official GitHub release link.</p>
+        </article>
       </div>
     </section>
 
-    <section class="release-section" id="releases">
+    <section class="bottom-cta">
       <div>
-        <p class="eyebrow">Release</p>
-        <h2>Always pointed at the newest build.</h2>
-        <p>The channel, asset name, download size, release date, and card copy update from GitHub when the page loads.</p>
+        <p class="eyebrow">Ready</p>
+        <h2>Get Forge Client.</h2>
       </div>
-
-      <article class="release-card">
-        <span id="releaseCardName">Latest GitHub release</span>
-        <strong id="releaseCardVersion">Forge setup</strong>
-        <p id="releaseCardText">The site prefers a Forge zip when one is attached, then falls back to the setup installer.</p>
-        <a id="releaseCardLink" href="https://github.com/rockbeatspaper-coder/Forge-Executor/releases/latest" target="_blank" rel="noreferrer">Download latest</a>
-      </article>
-    </section>
-
-    <section class="faq" id="faq">
-      <div class="section-heading">
-        <p class="eyebrow">FAQ</p>
-        <h2>Questions users actually ask.</h2>
-      </div>
-
-      <div class="faq-grid">
-        <article><h3>Which file do I download?</h3><p>Use the main Forge setup or the public Forge zip. You do not need to manually download latest.yml or the blockmap.</p></article>
-        <article><h3>Why is there a latest.yml file?</h3><p>That file is for Forge auto-update. The app reads it from GitHub releases in the background to find the newest build.</p></article>
-        <article><h3>What if Forge says it is up to date?</h3><p>That usually means the uploaded updater version is not higher than the installed version, or GitHub has not finished serving the new release assets yet.</p></article>
-        <article><h3>Where does Forge install?</h3><p>The installer uses the standard Forge install path and includes the Electron client, backend resources, app icon, shortcuts, and updater metadata.</p></article>
-        <article><h3>How do updates work?</h3><p>Forge checks GitHub on launch. When a newer version is available, it shows the update prompt, installs in the background, relaunches, and shows an installed notification.</p></article>
-        <article><h3>What if update files are missing?</h3><p>Forge shows a repair popup that points users to reinstall with all required files instead of leaving the updater stuck.</p></article>
-        <article><h3>Does Forge include a script hub?</h3><p>Yes. The client has a Script Hub page designed around searching, previewing, inserting, and running scripts from a dedicated workflow.</p></article>
-        <article><h3>Does the editor support Luau?</h3><p>The editor uses Monaco with Lua/Luau-focused highlighting, snippets, diagnostics, tabs, and a Lua 5.1 runtime label in the statusbar.</p></article>
-        <article><h3>Why does Windows warn on install?</h3><p>New or unsigned Windows apps can trigger SmartScreen-style warnings. Make sure you are using the official Forge release link from this site or GitHub.</p></article>
-      </div>
+      <a class="download-button" data-download-link href="https://github.com/rockbeatspaper-coder/Forge-Executor/releases/latest" target="_blank" rel="noreferrer">
+        <span>Download Forge</span>
+        <small data-release="downloadMeta">Fetching latest release...</small>
+      </a>
     </section>
   </main>
-
-  <script src="./app.js"></script>
 </body>
 </html>
